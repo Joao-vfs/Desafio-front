@@ -22,15 +22,10 @@ This is a simplified e-commerce website built with React, TypeScript, and styled
 
 ## Prototype
 
-- [Figma Prototype](link-to-figma-prototype)
+- [Figma Prototype]([link-to-figma-prototype](https://www.figma.com/file/0ZyTELvPCSCnib16XG49YP/Teste-Front-React-WeFit---2022?type=design&node-id=0-1&mode=design&t=E15UCXlYTibyXXht-0))
 
 ## API
 
-For this project, we simulate an API by using a JSON file. You can download the list of objects from [here](link-to-api-json-file).
+For this project, we simulate an API by using a JSON file. You can download the list of objects from [here]([link-to-api-json-file](https://www.npmjs.com/package/json-server)).
 
-To run the API server, you can use [json-server](https://github.com/typicode/json-server). Add the following command to your `package.json`:
-
-```json
-"scripts": {
-  "start-api": "json-server --watch api.json --port 3001"
-}
+To run the API server, you can use [json-server](https://github.com/typicode/json-server).
