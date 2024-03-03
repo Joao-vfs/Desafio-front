@@ -22,7 +22,7 @@ This is a simplified e-commerce website built with React, TypeScript, and styled
 
 ## Prototype
 
-- [Figma Prototype]([link-to-figma-prototype](https://www.figma.com/file/0ZyTELvPCSCnib16XG49YP/Teste-Front-React-WeFit---2022?type=design&node-id=0-1&mode=design&t=E15UCXlYTibyXXht-0))
+- [Figma Prototype](https://www.figma.com/file/0ZyTELvPCSCnib16XG49YP/Teste-Front-React-WeFit---2022?type=design&node-id=0-1&mode=design&t=E15UCXlYTibyXXht-0)
 
 ## API
 
