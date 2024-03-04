@@ -6,20 +6,6 @@ import { ICardProps } from "@/interfaces/ICard.interface";
 
 import CardsComponent from "./Cards.component";
 
-export function Cards({
-  image,
-  title,
-  price,
-  onClick,
-  add,
-}: Readonly<ICardProps>) {
-  return (
-    <CardsComponent
-      image={image}
-      title={title}
-      price={price}
-      onClick={onClick}
-      add={add}
-    />
-  );
+export function Cards({ onClick, films }: Readonly<ICardProps>) {
+  return <CardsComponent films={films} onClick={onClick} />;
 }

@@ -1,74 +1,76 @@
+import { useTheme } from "styled-components";
 import * as S from "./Cards.styles";
 
-import { THEME } from "@/global/styles/theme";
 import Text from "@/global/Typography/Text/Text";
 
 import { CartIcon } from "@/icons/cart.icon";
+
+import { formatPrice } from "@/utils/utils";
 
 import { ICardProps } from "@/interfaces/ICard.interface";
 
 import { Button } from "..";
 
 export default function CardsComponent({
-  image,
-  title,
-  price,
   onClick,
-  add,
+  films,
 }: Readonly<ICardProps>) {
+  const theme = useTheme();
   return (
     <S.ContainerCard>
-      <S.ImageFilm src={image} alt={title} />
+      <S.ImageFilm src={films.image} alt={films.title} />
       <S.Teste>
         <Text
-          fontSize={THEME.fontSize.nano}
-          fontWeight={THEME.fontWeight.bold}
-          color={THEME.colors.quaternary}
+          fontSize={theme.fontSize.nano}
+          fontWeight={theme.fontWeight.bold}
+          color={theme.colors.quaternary}
           lineHeight={"16.34px"}
         >
-          {title}
+          {films.title}
         </Text>
         <Text
-          fontSize={THEME.fontSize.md}
-          fontWeight={THEME.fontWeight.bold}
-          color={THEME.colors.dark}
+          fontSize={theme.fontSize.md}
+          fontWeight={theme.fontWeight.bold}
+          color={theme.colors.dark}
           lineHeight={"21.79px"}
         >
-          R$ {price}
+          R$ {formatPrice(films.price)}
         </Text>
       </S.Teste>
       <Button
         display={"flex"}
         alignItems={"center"}
-        justifyContent={add ? "space-evenly" : "center"}
-        gap={add ? "0" : THEME.gaps.lg}
+        justifyContent={films.quantity > 0 ? "space-evenly" : "center"}
+        gap={films.quantity > 0 ? "0" : theme.gaps.lg}
         height={"40px"}
         width={"287px"}
-        padding={THEME.paddings.xxs}
-        backGround={add ? THEME.colors.success : THEME.colors.tertiary}
-        borderRadius={THEME.borderRadius.small}
+        padding={theme.paddings.xxs}
+        backGround={
+          films.quantity > 0 ? theme.colors.success : theme.colors.tertiary
+        }
+        borderRadius={theme.borderRadius.small}
         border={"none"}
         onClick={onClick}
       >
         <S.ItemAdd>
           <CartIcon />
           <Text
-            fontSize={THEME.fontSize.nano}
-            fontWeight={THEME.fontWeight.normal}
-            color={THEME.colors.primary}
+            fontSize={theme.fontSize.nano}
+            fontWeight={theme.fontWeight.normal}
+            color={theme.colors.primary}
             lineHeight={"16.34px"}
           >
-            {add ? 1 : 0}
+            {films.quantity}
           </Text>
         </S.ItemAdd>
         <Text
-          fontSize={THEME.fontSize.nano}
-          fontWeight={THEME.fontWeight.bold}
-          color={THEME.colors.primary}
+          fontSize={theme.fontSize.nano}
+          fontWeight={theme.fontWeight.bold}
+          color={theme.colors.primary}
           lineHeight={"16.34px"}
           pointer
         >
-          {add ? "ITEM ADICIONADO" : "ADICIONAR AO CARRINHO"}
+          {films.quantity > 0 ? "ITEM ADICIONADO" : "ADICIONAR AO CARRINHO"}
         </Text>
       </Button>
     </S.ContainerCard>

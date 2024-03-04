@@ -1,10 +1,14 @@
 import { IFilmsProps } from "./IFilms.interface";
 
-export interface ISelectedFilms {
-  loading: boolean;
+export interface ISelectedComponentProps {
+  isLoading: boolean;
   selectedFilms: IFilmsProps[];
-  handleQuantityChange: (filmId: number, quantity: number) => void;
-  prices: { [filmId: string]: number };
-  handleRemoveFilmId: (id: number | string) => void;
-  handleRedirectRouter: () => void;
+  handleCartAction: (
+    film: IFilmsProps,
+    action: "add" | "remove" | "reset"
+  ) => void;
+}
+
+export interface ISelectedFilmsProps extends ISelectedComponentProps {
+  isMobile: boolean;
 }

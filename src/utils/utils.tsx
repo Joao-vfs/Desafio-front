@@ -13,12 +13,12 @@ export const formatPrice = (price: number): string => {
   return priceFormatted;
 };
 
-export const totalPriceWithQuantity = (
-  selectedFilms: IFilmsProps[],
-  prices: { [filmId: string]: number }
-): number => {
-  return selectedFilms.reduce(
-    (acc, movie) => acc + (prices[movie.id] || movie.price),
-    0
-  );
+export const totalPrice = (films: IFilmsProps[]) => {
+  let total = 0;
+
+  films?.forEach((totalPrice) => {
+    total += totalPrice.price * totalPrice.quantity;
+  });
+
+  return total;
 };

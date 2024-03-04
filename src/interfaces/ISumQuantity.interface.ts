@@ -1,10 +1,5 @@
 export interface ISumQuantityProps {
-  onChange: (quantity: number) => void;
-  filmId: number;
-}
-
-export interface ICounterInputProps {
+  quantity: number;
   decrement: () => void;
   increment: () => void;
-  value: number;
 }

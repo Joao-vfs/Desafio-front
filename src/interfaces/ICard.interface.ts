@@ -1,7 +1,6 @@
+import { IFilmsProps } from "./IFilms.interface";
+
 export interface ICardProps {
-  image: string;
-  title: string;
-  price: number | string;
   onClick: () => void;
-  add: boolean;
+  films: IFilmsProps;
 }

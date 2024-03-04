@@ -1,18 +1,19 @@
 "use client";
 
-import { useFilm } from "@/hooks/useHooks";
-
 import ListFilmsComponent from "./ListFilms.component";
 
-export function ListFilms() {
-  const { list, loading, handleCardClick, addStatus } = useFilm();
+import { IListFilmsProps } from "@/interfaces/IListFilms.interface";
 
+export function ListFilms({
+  list,
+  isLoading,
+  handleCartAction,
+}: Readonly<IListFilmsProps>) {
   return (
     <ListFilmsComponent
       list={list}
-      loading={loading}
-      addStatus={addStatus}
-      handleCardClick={handleCardClick}
+      isLoading={isLoading}
+      handleCartAction={handleCartAction}
     />
   );
 }

@@ -22,9 +22,13 @@ const BaseLayout = ({ children }: { children: React.ReactNode }) => {
           flexDirection
           alignItems="center"
           justifyContent="center"
+          width="100%"
+          height="100%"
         >
-          <Header />
-          <Children>{children}</Children>
+          <Children>
+            <Header />
+            {children}
+          </Children>
         </Box>
       </ThemeProvider>
     </ReduxProvider>

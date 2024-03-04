@@ -2,122 +2,100 @@ import { useRouter } from "next/navigation";
 
 import { useCallback, useEffect, useState } from "react";
 
-import { getFilms } from "@/services/query";
+import { getFilms, putFilms } from "@/services/query";
 
 import { UseAppDispatch, UseAppSelector } from "@/redux/store";
-import {
-  handleFilmsSelected,
-  handleRemoveFilm,
-  handleResetState,
-} from "@/redux/slices/WeMovies/weMovies.slices";
+import { handleFilmsSelected } from "@/redux/slices/WeMovies/weMovies.slices";
 
 import { IFilmsProps } from "@/interfaces/IFilms.interface";
 
 export function useFilm() {
-  const [list, setList] = useState<IFilmsProps[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [prices, setPrices] = useState<{ [filmId: string]: number }>({});
-  const [selectedFilms, setSelectedFilms] = useState<IFilmsProps[]>([]);
-  const [addStatus, setAddStatus] = useState<{ [key: string]: boolean }>({});
-  const selectedPrice = UseAppSelector(
+  const [isLoading, setIsLoading] = useState(true);
+
+  const { push } = useRouter();
+
+  const allFilms = UseAppSelector(
     (state) => state.WeMoviesSlice.weMovies.filmsSelected
   );
   const dispatch = UseAppDispatch();
 
-  const router = useRouter();
-
   const fetchListFilms = useCallback(async () => {
     try {
-      if (list.length === 0) {
+      if (allFilms.length === 0) {
         await new Promise((resolve) => setTimeout(resolve, 500));
       }
-      setLoading(false);
+      setIsLoading(false);
       const res = await getFilms();
-      setList(res);
+      dispatch(handleFilmsSelected(res));
     } catch (error) {
-      setLoading(true);
-      console.error("Erro ao obter filmes:", error);
+      setIsLoading(true);
+      error;
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
-  }, [list]);
+  }, [dispatch, allFilms.length]);
+
+  const handleCartAction = useCallback(
+    async (film: IFilmsProps, action: "add" | "remove" | "reset") => {
+      try {
+        const { cart, quantity, ...prev } = film;
+        let updatedFilm;
+
+        switch (action) {
+          case "add":
+            updatedFilm = {
+              cart: true,
+              quantity: quantity + 1,
+              ...prev,
+            };
+            break;
+          case "remove":
+            updatedFilm = {
+              cart: quantity === 1 ? false : true,
+              quantity: quantity === 1 ? 0 : quantity - 1,
+              ...prev,
+            };
+            break;
+          case "reset":
+            updatedFilm = {
+              cart: false,
+              quantity: 0,
+              ...prev,
+            };
+            break;
+          default:
+            throw new Error("Invalid action type");
+        }
+
+        await putFilms(updatedFilm);
+        fetchListFilms();
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    [fetchListFilms]
+  );
+
+  const filmsInCart = allFilms.filter((i) => i.cart);
+
+  const removeAllFromCart = () => {
+    filmsInCart.map((item) => {
+      putFilms({ ...item, cart: false, quantity: 0 });
+    });
+
+    return push("/finalizePurchases");
+  };
 
   useEffect(() => {
     fetchListFilms();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleFilmClick = (film: IFilmsProps) => {
-    const isFilmSelected = selectedFilms.some(
-      (selectedFilm) => selectedFilm.id === film.id
-    );
-
-    if (isFilmSelected) {
-      setSelectedFilms((prevSelectedFilms) =>
-        prevSelectedFilms.filter((selectedFilm) => selectedFilm.id !== film.id)
-      );
-      dispatch(handleRemoveFilm(film.id));
-    } else {
-      setSelectedFilms((prevSelectedFilms) => [...prevSelectedFilms, film]);
-      dispatch(handleFilmsSelected(film));
-    }
-  };
-
-  const handleCardClick = (film: IFilmsProps) => {
-    handleFilmClick(film);
-    setAddStatus((prevAddStatus) => ({
-      ...prevAddStatus,
-      [film.id]: !prevAddStatus[film.id],
-    }));
-  };
-
-  const handleQuantityChange = (filmId: number, quantity: number) => {
-    const updatedSelectedFilms = selectedPrice.map((film: IFilmsProps) => ({
-      ...film,
-    }));
-
-    const filmIndex = updatedSelectedFilms.findIndex(
-      (film: { id: number }) => film.id === filmId
-    );
-
-    if (filmIndex !== -1) {
-      const updatedPrice = updatedSelectedFilms[filmIndex].price * quantity;
-      setPrices((prevPrices) => ({
-        ...prevPrices,
-        [filmId]: updatedPrice,
-      }));
-
-      updatedSelectedFilms[filmIndex].price = updatedPrice;
-    }
-  };
-
-  const handleBackHome = () => {
-    router.push("/");
-    dispatch(handleResetState());
-  };
-
-  const handleRedirectRouter = () => {
-    if (selectedPrice.length > 0) {
-      router.push("/finalizePurchases");
-    }
-  };
-
-  const handleRemoveFilmId = (id: number | string) => {
-    dispatch(handleRemoveFilm(id));
-  };
-
   return {
-    list,
-    loading,
-    selectedFilms,
-    selectedPrice,
-    prices,
-    addStatus,
-    handleFilmClick,
-    handleCardClick,
-    handleBackHome,
-    handleRedirectRouter,
-    handleRemoveFilmId,
-    handleQuantityChange,
+    isLoading,
+    allFilms,
+    filmsInCart,
+    handleCartAction,
+    removeAllFromCart,
   };
 }

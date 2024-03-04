@@ -2,26 +2,19 @@
 
 import { useFilm } from "@/hooks/useHooks";
 
+import useMobile from "@/global/isMobile/isMobile";
+
 import SelectedFilmsComponent from "./SelectedFilms.component";
 
 export function SelectedFilms() {
-  const {
-    loading,
-    selectedPrice,
-    handleQuantityChange,
-    prices,
-    handleRemoveFilmId,
-    handleRedirectRouter,
-  } = useFilm();
+  const { allFilms, isLoading, handleCartAction } = useFilm();
 
   return (
     <SelectedFilmsComponent
-      loading={loading}
-      selectedFilms={selectedPrice}
-      handleQuantityChange={handleQuantityChange}
-      prices={prices}
-      handleRemoveFilmId={handleRemoveFilmId}
-      handleRedirectRouter={handleRedirectRouter}
+      isLoading={isLoading}
+      selectedFilms={allFilms.filter((item) => item.cart)}
+      handleCartAction={handleCartAction}
+      isMobile={useMobile()}
     />
   );
 }

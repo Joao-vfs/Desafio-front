@@ -1,41 +1,17 @@
-import { useRouter } from "next/navigation";
-
-import React, { useState } from "react";
-
-import { useFilm } from "@/hooks/useHooks";
+"use client";
 
 import { ISumQuantityProps } from "@/interfaces/ISumQuantity.interface";
 
 import SumQuantityComponent from "./SumQuantity.component";
 
-export function SumQuantity({ onChange, filmId }: Readonly<ISumQuantityProps>) {
-  const [value, setValue] = useState(1);
-  const { handleRemoveFilmId } = useFilm();
-  const router = useRouter();
-
-  const decrement = () => {
-    setValue((prevValue) => {
-      const newValue = prevValue - 1;
-      onChange(newValue);
-      return newValue;
-    });
-    if (value === 1) {
-      handleRemoveFilmId(filmId);
-      router.push("/noPurchases");
-    }
-  };
-
-  const increment = () => {
-    setValue((prevValue) => {
-      const newValue = prevValue + 1;
-      onChange(newValue);
-      return newValue;
-    });
-  };
-
+export function SumQuantity({
+  quantity,
+  increment,
+  decrement,
+}: Readonly<ISumQuantityProps>) {
   return (
     <SumQuantityComponent
-      value={value}
+      quantity={quantity}
       decrement={decrement}
       increment={increment}
     />

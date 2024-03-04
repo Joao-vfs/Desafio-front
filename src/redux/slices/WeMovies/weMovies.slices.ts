@@ -13,23 +13,11 @@ export const WeMoviesSlice = createSlice({
   initialState,
   reducers: {
     handleFilmsSelected: (state, action) => {
-      state.weMovies.filmsSelected = [
-        ...state.weMovies.filmsSelected,
-        action.payload,
-      ];
-    },
-    handleRemoveFilm: (state, action) => {
-      state.weMovies.filmsSelected = state.weMovies.filmsSelected.filter(
-        (film) => film.id !== action.payload
-      );
-    },
-    handleResetState: (state) => {
-      state.weMovies = initialState.weMovies;
+      state.weMovies.filmsSelected = action.payload;
     },
   },
 });
 
-export const { handleFilmsSelected, handleRemoveFilm, handleResetState } =
-  WeMoviesSlice.actions;
+export const { handleFilmsSelected } = WeMoviesSlice.actions;
 
 export default WeMoviesSlice.reducer;

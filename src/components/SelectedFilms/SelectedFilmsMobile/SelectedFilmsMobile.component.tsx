@@ -1,30 +1,33 @@
+import { useRouter } from "next/navigation";
+
 import * as S from "./SelectedFilmsMobile.styles";
 
+import { useTheme } from "styled-components";
+
 import Box from "@/global/layout/Box";
-import { THEME } from "@/global/styles/theme";
 import Text from "@/global/Typography/Text/Text";
 
-import { formatPrice, totalPriceWithQuantity } from "@/utils/utils";
+import { formatPrice, totalPrice } from "@/utils/utils";
 
 import { TrashIcon } from "@/icons/trash.icon";
 
-import { ISelectedFilms } from "@/interfaces/ISelectedFilms.interface";
+import { ISelectedComponentProps } from "@/interfaces/ISelectedFilms.interface";
 
 import { Button, Loading, SumQuantity } from "@/components";
 
 export function SelectedFilmsMobile({
-  loading,
+  isLoading,
   selectedFilms,
-  handleQuantityChange,
-  prices,
-  handleRemoveFilmId,
-  handleRedirectRouter,
-}: Readonly<ISelectedFilms>) {
-  return loading ? (
+  handleCartAction,
+}: Readonly<ISelectedComponentProps>) {
+  const theme = useTheme();
+  const { push } = useRouter();
+
+  return isLoading ? (
     <Loading />
   ) : (
     <Box
-      backGround={THEME.colors.primary}
+      backGround={theme.colors.primary}
       display="flex"
       flexDirection
       alignItems="center"
@@ -33,7 +36,7 @@ export function SelectedFilmsMobile({
       minHeight="716px"
       maxHeight="100%"
       padding="16px"
-      borderRadius={THEME.borderRadius.small}
+      borderRadius={theme.borderRadius.small}
     >
       {selectedFilms?.map((moviesPurchase) => (
         <S.CartItemContainer key={moviesPurchase.id}>
@@ -41,53 +44,50 @@ export function SelectedFilmsMobile({
           <S.FilmDetailsContainer>
             <S.FilmInfoContainer>
               <Text
-                fontSize={THEME.fontSize.sm}
-                fontWeight={THEME.fontWeight.bold}
-                color={THEME.colors.dark}
+                fontSize={theme.fontSize.sm}
+                fontWeight={theme.fontWeight.bold}
+                color={theme.colors.dark}
                 lineHeight={"19.07px"}
               >
                 {moviesPurchase.title}
               </Text>
               <Text
-                fontSize={THEME.fontSize.md}
-                fontWeight={THEME.fontWeight.bold}
-                color={THEME.colors.dark}
+                fontSize={theme.fontSize.md}
+                fontWeight={theme.fontWeight.bold}
+                color={theme.colors.dark}
                 lineHeight={"21.79px"}
               >
                 R$ {formatPrice(moviesPurchase.price)}
               </Text>
               <S.TrashButton
-                onClick={() => handleRemoveFilmId(moviesPurchase.id)}
+                onClick={() => handleCartAction(moviesPurchase, "reset")}
               >
                 <TrashIcon />
               </S.TrashButton>
             </S.FilmInfoContainer>
             <S.ProductDescriptionContainer>
               <SumQuantity
-                filmId={moviesPurchase.id}
-                onChange={(quantity) =>
-                  handleQuantityChange(moviesPurchase.id, quantity)
-                }
+                quantity={moviesPurchase.quantity}
+                increment={() => handleCartAction(moviesPurchase, "add")}
+                decrement={() => handleCartAction(moviesPurchase, "remove")}
               />
               <S.QuantitySubtotalContainer>
                 <Text
-                  fontSize={THEME.fontSize.sm}
-                  fontWeight={THEME.fontWeight.bold}
-                  color={THEME.colors.secundary}
+                  fontSize={theme.fontSize.sm}
+                  fontWeight={theme.fontWeight.bold}
+                  color={theme.colors.secundary}
                   lineHeight={"16.34px"}
                 >
                   SUBTOTAL
                 </Text>
                 <Text
-                  fontSize={THEME.fontSize.md}
-                  fontWeight={THEME.fontWeight.bold}
-                  color={THEME.colors.dark}
+                  fontSize={theme.fontSize.md}
+                  fontWeight={theme.fontWeight.bold}
+                  color={theme.colors.dark}
                   lineHeight={"21.79px"}
                 >
                   R${" "}
-                  {formatPrice(
-                    prices[moviesPurchase.id] || moviesPurchase.price
-                  )}
+                  {formatPrice(moviesPurchase.price * moviesPurchase.quantity)}
                 </Text>
               </S.QuantitySubtotalContainer>
             </S.ProductDescriptionContainer>
@@ -98,39 +98,39 @@ export function SelectedFilmsMobile({
         <S.FilmSelectedContainer>
           <S.TotalPriceContainer>
             <Text
-              fontSize={THEME.fontSize.sm}
-              fontWeight={THEME.fontWeight.bold}
-              color={THEME.colors.secundary}
+              fontSize={theme.fontSize.sm}
+              fontWeight={theme.fontWeight.bold}
+              color={theme.colors.secundary}
               lineHeight={"19.07px"}
             >
               TOTAL
             </Text>
             <Text
-              fontSize={THEME.fontSize.xg}
-              fontWeight={THEME.fontWeight.bold}
-              color={THEME.colors.dark}
+              fontSize={theme.fontSize.xg}
+              fontWeight={theme.fontWeight.bold}
+              color={theme.colors.dark}
               lineHeight={"31.39px"}
             >
-              R$ {formatPrice(totalPriceWithQuantity(selectedFilms, prices))}
+              R$ {formatPrice(totalPrice(selectedFilms))}
             </Text>
           </S.TotalPriceContainer>
           <Button
             display={"flex"}
             alignItems={"center"}
             justifyContent={"center"}
-            gap={THEME.gaps.lg}
+            gap={theme.gaps.lg}
             height={"40px"}
             width={"311px"}
-            padding={THEME.paddings.xxs}
-            backGround={THEME.colors.tertiary}
-            borderRadius={THEME.borderRadius.small}
+            padding={theme.paddings.xxs}
+            backGround={theme.colors.tertiary}
+            borderRadius={theme.borderRadius.small}
             border={"none"}
-            onClick={handleRedirectRouter}
+            onClick={() => push("/finalizePurchases")}
           >
             <Text
-              fontSize={THEME.fontSize.sm}
-              fontWeight={THEME.fontWeight.bold}
-              color={THEME.colors.primary}
+              fontSize={theme.fontSize.sm}
+              fontWeight={theme.fontWeight.bold}
+              color={theme.colors.primary}
               lineHeight={"31.39px"}
               pointer
             >
