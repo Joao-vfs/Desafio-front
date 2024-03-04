@@ -16,7 +16,10 @@ export default function FinalizePurchases() {
 
   useEffect(() => {
     if (filmsInCart.length === 0) return push("/");
-    if (filmsInCart.length > 0) return removeAllFromCart();
+    if (filmsInCart.length > 0) {
+      removeAllFromCart();
+      push("/finalizePurchases");
+    }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

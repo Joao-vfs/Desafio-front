@@ -16,6 +16,14 @@ export default function HeaderLayout({
   const theme = useTheme();
   const { push } = useRouter();
 
+  const handleRedirectRouter = () => {
+    if (itemsCart === 0) {
+      return push("/noPurchases");
+    } else {
+      return push("/cart");
+    }
+  };
+
   return (
     <S.Header>
       <Text
@@ -50,7 +58,7 @@ export default function HeaderLayout({
             {itemsCart} itens
           </Text>
         </S.ShoppingCartInfo>
-        <BagIcon onClick={() => push("/cart")} />
+        <BagIcon onClick={handleRedirectRouter} />
       </S.ContentHeader>
     </S.Header>
   );

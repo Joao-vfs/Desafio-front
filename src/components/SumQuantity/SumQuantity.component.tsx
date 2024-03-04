@@ -22,13 +22,9 @@ const SumQuantityComponent = ({
       justifyContent="flex-start"
       gap={theme.gaps.md}
     >
-      <S.IcLess onClick={decrement}>
-        <LessIcon />
-      </S.IcLess>
+      <LessIcon onClick={decrement} />
       <S.Input type="text" value={quantity} readOnly />
-      <S.IcPlus onClick={increment}>
-        <PlusIcon />
-      </S.IcPlus>
+      <PlusIcon onClick={increment} />
     </Box>
   );
 };

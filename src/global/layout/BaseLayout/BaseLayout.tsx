@@ -25,10 +25,8 @@ const BaseLayout = ({ children }: { children: React.ReactNode }) => {
           width="100%"
           height="100%"
         >
-          <Children>
-            <Header />
-            {children}
-          </Children>
+          <Header />
+          <Children>{children}</Children>
         </Box>
       </ThemeProvider>
     </ReduxProvider>

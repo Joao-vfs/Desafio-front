@@ -38,47 +38,19 @@ export function SelectedFilmsMobile({
       padding="16px"
       borderRadius={theme.borderRadius.small}
     >
-      {selectedFilms?.map((moviesPurchase) => (
-        <S.CartItemContainer key={moviesPurchase.id}>
-          <S.ProductImage src={moviesPurchase.image} alt="" />
-          <S.FilmDetailsContainer>
-            <S.FilmInfoContainer>
-              <Text
-                fontSize={theme.fontSize.sm}
-                fontWeight={theme.fontWeight.bold}
-                color={theme.colors.dark}
-                lineHeight={"19.07px"}
-              >
-                {moviesPurchase.title}
-              </Text>
-              <Text
-                fontSize={theme.fontSize.md}
-                fontWeight={theme.fontWeight.bold}
-                color={theme.colors.dark}
-                lineHeight={"21.79px"}
-              >
-                R$ {formatPrice(moviesPurchase.price)}
-              </Text>
-              <S.TrashButton
-                onClick={() => handleCartAction(moviesPurchase, "reset")}
-              >
-                <TrashIcon />
-              </S.TrashButton>
-            </S.FilmInfoContainer>
-            <S.ProductDescriptionContainer>
-              <SumQuantity
-                quantity={moviesPurchase.quantity}
-                increment={() => handleCartAction(moviesPurchase, "add")}
-                decrement={() => handleCartAction(moviesPurchase, "remove")}
-              />
-              <S.QuantitySubtotalContainer>
+      <Box width="100%" display="flex" flexDirection gap={theme.gaps.xg}>
+        {selectedFilms?.map((moviesPurchase) => (
+          <S.CartItemContainer key={moviesPurchase.id}>
+            <S.ProductImage src={moviesPurchase.image} alt="" />
+            <S.FilmDetailsContainer>
+              <S.FilmInfoContainer>
                 <Text
                   fontSize={theme.fontSize.sm}
                   fontWeight={theme.fontWeight.bold}
-                  color={theme.colors.secundary}
-                  lineHeight={"16.34px"}
+                  color={theme.colors.dark}
+                  lineHeight={"19.07px"}
                 >
-                  SUBTOTAL
+                  {moviesPurchase.title}
                 </Text>
                 <Text
                   fontSize={theme.fontSize.md}
@@ -86,14 +58,46 @@ export function SelectedFilmsMobile({
                   color={theme.colors.dark}
                   lineHeight={"21.79px"}
                 >
-                  R${" "}
-                  {formatPrice(moviesPurchase.price * moviesPurchase.quantity)}
+                  R$ {formatPrice(moviesPurchase.price)}
                 </Text>
-              </S.QuantitySubtotalContainer>
-            </S.ProductDescriptionContainer>
-          </S.FilmDetailsContainer>
-        </S.CartItemContainer>
-      ))}
+                <S.TrashButton
+                  onClick={() => handleCartAction(moviesPurchase, "reset")}
+                >
+                  <TrashIcon />
+                </S.TrashButton>
+              </S.FilmInfoContainer>
+              <S.ProductDescriptionContainer>
+                <SumQuantity
+                  quantity={moviesPurchase.quantity}
+                  increment={() => handleCartAction(moviesPurchase, "add")}
+                  decrement={() => handleCartAction(moviesPurchase, "remove")}
+                />
+                <S.QuantitySubtotalContainer>
+                  <Text
+                    fontSize={theme.fontSize.sm}
+                    fontWeight={theme.fontWeight.bold}
+                    color={theme.colors.secundary}
+                    lineHeight={"16.34px"}
+                  >
+                    SUBTOTAL
+                  </Text>
+                  <Text
+                    fontSize={theme.fontSize.md}
+                    fontWeight={theme.fontWeight.bold}
+                    color={theme.colors.dark}
+                    lineHeight={"21.79px"}
+                  >
+                    R${" "}
+                    {formatPrice(
+                      moviesPurchase.price * moviesPurchase.quantity
+                    )}
+                  </Text>
+                </S.QuantitySubtotalContainer>
+              </S.ProductDescriptionContainer>
+            </S.FilmDetailsContainer>
+          </S.CartItemContainer>
+        ))}
+      </Box>
       <S.DividerLine>
         <S.FilmSelectedContainer>
           <S.TotalPriceContainer>

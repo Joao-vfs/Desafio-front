@@ -82,8 +82,6 @@ export function useFilm() {
     filmsInCart.map((item) => {
       putFilms({ ...item, cart: false, quantity: 0 });
     });
-
-    return push("/finalizePurchases");
   };
 
   useEffect(() => {

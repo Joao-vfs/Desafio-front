@@ -8,18 +8,21 @@ export default function SelectedFilmsComponent({
   selectedFilms,
   isMobile,
   handleCartAction,
+  removeAllFromCart,
 }: Readonly<ISelectedFilmsProps>) {
   return isMobile ? (
     <SelectedFilmsMobile
       isLoading={isLoading}
       selectedFilms={selectedFilms}
       handleCartAction={handleCartAction}
+      removeAllFromCart={removeAllFromCart}
     />
   ) : (
     <SelectedFilmsWeb
       isLoading={isLoading}
       selectedFilms={selectedFilms}
       handleCartAction={handleCartAction}
+      removeAllFromCart={removeAllFromCart}
     />
   );
 }
