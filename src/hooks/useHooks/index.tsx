@@ -1,5 +1,3 @@
-import { useRouter } from "next/navigation";
-
 import { useCallback, useEffect, useState } from "react";
 
 import { getFilms, putFilms } from "@/services/query";
@@ -12,8 +10,6 @@ import { IFilmsProps } from "@/interfaces/IFilms.interface";
 export function useFilm() {
   const [isLoading, setIsLoading] = useState(true);
 
-  const { push } = useRouter();
-
   const allFilms = UseAppSelector(
     (state) => state.WeMoviesSlice.weMovies.filmsSelected
   );
@@ -22,7 +18,7 @@ export function useFilm() {
   const fetchListFilms = useCallback(async () => {
     try {
       if (allFilms.length === 0) {
-        await new Promise((resolve) => setTimeout(resolve, 500));
+        await new Promise((resolve) => setTimeout(resolve, 1500));
       }
       setIsLoading(false);
       const res = await getFilms();

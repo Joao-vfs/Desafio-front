@@ -28,4 +28,9 @@ This is a simplified e-commerce website built with React, TypeScript, and styled
 
 For this project, we simulate an API by using a JSON file. You can download the list of objects from [here]([link-to-api-json-file](https://www.npmjs.com/package/json-server)).
 
-To run the API server, you can use [json-server](https://github.com/typicode/json-server).
+To run the API server, you can use [json-server](https://github.com/typicode/json-server). Add the following command to your `package.json`:
+
+```json
+"scripts": {
+    "start-api": "json-server --watch src/api/db.json --port 3001"
+}

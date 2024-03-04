@@ -8,7 +8,7 @@ import Text from "@/global/Typography/Text/Text";
 
 import WithoutItems from "@/assets/images/Group 43.svg";
 
-export default function NoPurchasesPage({
+export default function NoPurchasesComponent({
   handleBackHome,
   isLoading,
   isMobile,

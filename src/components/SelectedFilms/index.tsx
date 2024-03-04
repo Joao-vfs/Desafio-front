@@ -6,23 +6,14 @@ import useMobile from "@/global/isMobile/isMobile";
 
 import SelectedFilmsComponent from "./SelectedFilms.component";
 
-import { UseAppSelector } from "@/redux/store";
-
 export function SelectedFilms() {
-  const { isLoading, handleCartAction, removeAllFromCart } = useFilm();
-  const itemsCart = UseAppSelector(
-    (state) => state.WeMoviesSlice.weMovies.filmsSelected
-  );
-
-  const teste = itemsCart.filter((i) => i.cart);
-  console.log("filmsInCart =>", teste);
+  const { isLoading, handleCartAction, filmsInCart } = useFilm();
 
   return (
     <SelectedFilmsComponent
       isLoading={isLoading}
-      selectedFilms={teste}
+      selectedFilms={filmsInCart}
       handleCartAction={handleCartAction}
-      removeAllFromCart={removeAllFromCart}
       isMobile={useMobile()}
     />
   );

@@ -7,7 +7,6 @@ export interface ISelectedComponentProps {
     film: IFilmsProps,
     action: "add" | "remove" | "reset"
   ) => void;
-  removeAllFromCart: () => void;
 }
 
 export interface ISelectedFilmsProps extends ISelectedComponentProps {

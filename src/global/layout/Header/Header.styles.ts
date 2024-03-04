@@ -11,6 +11,7 @@ export const Header = styled.header`
     width: 63%;
   }
   @media only screen and (max-width: 768px) {
+    width: 100%;
     justify-content: space-around;
   }
 `;

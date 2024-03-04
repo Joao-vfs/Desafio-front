@@ -12,7 +12,6 @@ import { formatPrice, totalPrice } from "@/utils/utils";
 import { TrashIcon } from "@/icons/trash.icon";
 
 import { ISelectedComponentProps } from "@/interfaces/ISelectedFilms.interface";
-import { IFilmsProps } from "@/interfaces/IFilms.interface";
 
 import { Button, Loading, SumQuantity } from "@/components";
 
@@ -20,25 +19,9 @@ export function SelectedFilmsWeb({
   isLoading,
   selectedFilms,
   handleCartAction,
-  removeAllFromCart,
 }: Readonly<ISelectedComponentProps>) {
   const theme = useTheme();
   const { push } = useRouter();
-  console.log("selectedFilms => ", selectedFilms);
-
-  const handleNoPurchases = (
-    film: IFilmsProps,
-    action: "add" | "remove" | "reset"
-  ) => {
-    if (selectedFilms.length === 0) {
-      removeAllFromCart();
-      push("/noPurchases");
-      console.log('entrou no meu if');
-      
-    } else {
-      handleCartAction(film, action);
-    }
-  };
 
   return isLoading ? (
     <Loading />
@@ -110,7 +93,7 @@ export function SelectedFilmsWeb({
             <SumQuantity
               quantity={moviesPurchase.quantity}
               increment={() => handleCartAction(moviesPurchase, "add")}
-              decrement={() => handleNoPurchases(moviesPurchase, "remove")}
+              decrement={() => handleCartAction(moviesPurchase, "remove")}
             />
             <S.SubtotalContainer>
               <Text
@@ -124,7 +107,7 @@ export function SelectedFilmsWeb({
             </S.SubtotalContainer>
           </S.IconsContainer>
           <S.TrashButton
-            onClick={() => handleNoPurchases(moviesPurchase, "reset")}
+            onClick={() => handleCartAction(moviesPurchase, "reset")}
           >
             <TrashIcon />
           </S.TrashButton>
