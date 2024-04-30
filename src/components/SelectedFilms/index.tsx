@@ -7,12 +7,12 @@ import useMobile from "@/global/isMobile/isMobile";
 import SelectedFilmsComponent from "./SelectedFilms.component";
 
 export function SelectedFilms() {
-  const { allFilms, isLoading, handleCartAction } = useFilm();
+  const { isLoading, handleCartAction, filmsInCart } = useFilm();
 
   return (
     <SelectedFilmsComponent
       isLoading={isLoading}
-      selectedFilms={allFilms.filter((item) => item.cart)}
+      selectedFilms={filmsInCart}
       handleCartAction={handleCartAction}
       isMobile={useMobile()}
     />

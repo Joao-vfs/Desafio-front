@@ -1,8 +1,8 @@
 {
   "products": [
     {
-      "cart": true,
-      "quantity": 1,
+      "cart": false,
+      "quantity": 0,
       "id": "1",
       "price": 9.99,
       "title": "Viúva Negra",

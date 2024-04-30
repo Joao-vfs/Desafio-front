@@ -5,9 +5,13 @@ export const Header = styled.header`
   align-items: center;
   justify-content: space-between;
   height: 70px;
-  width: 960px;
+  width: 50%;
 
+  @media only screen and (max-width: 1536px) {
+    width: 63%;
+  }
   @media only screen and (max-width: 768px) {
+    width: 100%;
     justify-content: space-around;
   }
 `;

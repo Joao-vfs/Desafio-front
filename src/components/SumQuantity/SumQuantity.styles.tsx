@@ -1,9 +1,5 @@
 import styled from "styled-components";
 
-export const IcPlus = styled.div``;
-
-export const IcLess = styled.div``;
-
 export const Input = styled.input`
   width: 62px;
   height: 26px;
