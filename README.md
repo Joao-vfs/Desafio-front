@@ -32,5 +32,5 @@ To run the API server, you can use [json-server](https://github.com/typicode/jso
 
 ```json
 "scripts": {
-    "start-api": "json-server --watch src/api/db.json --port 3001"
+    "start-api": "json-server --watch src/api/db.json --port 3000"
 }
