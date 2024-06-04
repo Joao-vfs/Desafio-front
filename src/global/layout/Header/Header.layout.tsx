@@ -2,9 +2,9 @@ import { useRouter } from "next/navigation";
 
 import * as S from "./Header.styles";
 
-import Text from "@/global/Typography/Text/Text";
+import Typography from "@/global/Typography/Typography";
 
-import { BagIcon } from "@/icons/bag.icon";
+import { BagIcon } from "@/icons";
 
 import { IHeaderLayoutProps } from "@/interfaces/IHeader.interface";
 import { useTheme } from "styled-components";
@@ -18,37 +18,37 @@ export default function HeaderLayout({
 
   return (
     <S.Header>
-      <Text
+      <Typography
         onClick={() => push("/")}
-        fontSize={theme.fontSize.lg}
-        fontWeight={theme.fontWeight.bold}
+        font-size={theme.fontSize.lg}
+        font-weight={theme.fontWeight.bold}
         color={theme.colors.primary}
-        lineHeight={"27.24px"}
-        pointer
+        line-height={"27.24px"}
+        cursor="pointer"
       >
         We Movies
-      </Text>
+      </Typography>
       <S.ContentHeader>
         <S.ShoppingCartInfo>
           {!isMobile && (
-            <Text
-              fontSize={theme.fontSize.md}
-              fontWeight={theme.fontWeight.semiBold}
+            <Typography
+              font-size={theme.fontSize.md}
+              font-weight={theme.fontWeight.semiBold}
               color={theme.colors.primary}
-              lineHeight={"19.07px"}
+              line-height={"19.07px"}
             >
               Meu Carrinho
-            </Text>
+            </Typography>
           )}
 
-          <Text
-            fontSize={theme.fontSize.md}
-            fontWeight={theme.fontWeight.semiBold}
+          <Typography
+            font-size={theme.fontSize.md}
+            font-weight={theme.fontWeight.semiBold}
             color={theme.colors.secundary}
-            lineHeight={"19.07px"}
+            line-height={"19.07px"}
           >
             {itemsCart} itens
-          </Text>
+          </Typography>
         </S.ShoppingCartInfo>
         <BagIcon onClick={() => push("/cart")} />
       </S.ContentHeader>

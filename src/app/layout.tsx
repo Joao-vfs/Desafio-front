@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
 import { Open_Sans } from "next/font/google";
 
+import { ReduxProvider } from "@/redux/provider";
+
+import StyledRegistry from "@/global/layout/StyledRegistry/StyledRegistry";
+
 import BaseLayout from "@/global/layout/BaseLayout/BaseLayout";
-import StyledComponentsRegistry from "@/global/layout/StyledComponentsRegistry/StyledComponentsRegistry.registry";
 
 const OPENS_SANS = Open_Sans({ subsets: ["latin"] });
 
@@ -18,9 +21,11 @@ export default function RootLayout({
   return (
     <html lang="pt-br">
       <body className={OPENS_SANS.className}>
-        <StyledComponentsRegistry>
-          <BaseLayout>{children}</BaseLayout>
-        </StyledComponentsRegistry>
+        <ReduxProvider>
+          <StyledRegistry>
+            <BaseLayout>{children}</BaseLayout>
+          </StyledRegistry>
+        </ReduxProvider>
       </body>
     </html>
   );

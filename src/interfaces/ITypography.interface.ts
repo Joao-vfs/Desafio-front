@@ -1,11 +1,8 @@
-export interface ITypographyProps {
-    fontSize?: string;
-    fontWeight?: number;
-    color?: string;
-    pointer?: boolean;
-    lineHeight?: number | string;
-    children: React.ReactNode;
-    onClick?: () => void;
-    textAlign?: 'left' | 'right' | 'center';
-  }
-  
+import { HTMLAttributes, ReactNode } from "react";
+
+import { IStyleableComponentProps } from "./IStyles.interface";
+
+export type ITypographyProps = HTMLAttributes<HTMLParagraphElement> &
+  IStyleableComponentProps & {
+    children: ReactNode;
+  };

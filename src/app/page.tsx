@@ -1,20 +1,13 @@
 "use client";
 
-import { useFilm } from "@/hooks/useHooks";
+import { useFilms } from "@/hooks/useFilms";
 
-import { ListFilms, Loading } from "@/components";
+import { ListFilms } from "@/components";
 
 export default function HomePage() {
-  const { handleCartAction, allFilms, isLoading, ...props } = useFilm();
+  const { handleCartAction, allFilms, ...props } = useFilms();
 
-  return isLoading ? (
-    <Loading />
-  ) : (
-    <ListFilms
-      handleCartAction={handleCartAction}
-      list={allFilms}
-      isLoading={isLoading}
-      {...props}
-    />
+  return (
+    <ListFilms handleCartAction={handleCartAction} list={allFilms} {...props} />
   );
 }

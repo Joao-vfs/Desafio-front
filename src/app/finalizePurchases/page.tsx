@@ -4,14 +4,12 @@ import { useRouter } from "next/navigation";
 
 import { useEffect } from "react";
 
-import { useFilm } from "@/hooks/useHooks";
+import { useFilms } from "@/hooks/useFilms";
 
-import useMobile from "@/global/isMobile/isMobile";
-
-import FinalizePurchasesPage from ".";
+import { PurchaseResult } from "@/components/PurchaseResult";
 
 export default function FinalizePurchases() {
-  const { isLoading, removeAllFromCart, filmsInCart } = useFilm();
+  const { removeAllFromCart, filmsInCart } = useFilms();
   const { push } = useRouter();
 
   useEffect(() => {
@@ -23,11 +21,5 @@ export default function FinalizePurchases() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return (
-    <FinalizePurchasesPage
-      isMobile={useMobile()}
-      isLoading={isLoading}
-      handleBackHome={() => push("/")}
-    />
-  );
+  return <PurchaseResult havePurchase />;
 }

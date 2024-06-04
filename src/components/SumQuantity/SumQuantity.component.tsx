@@ -2,10 +2,9 @@ import { useTheme } from "styled-components";
 
 import * as S from "./SumQuantity.styles";
 
-import Box from "@/global/layout/Box";
+import Box from "@/global/layout/Box/Box.layout";
 
-import { LessIcon } from "@/icons/less.icon";
-import { PlusIcon } from "@/icons/plus.icon";
+import { LessIcon, PlusIcon } from "@/icons";
 
 import { ISumQuantityProps } from "@/interfaces/ISumQuantity.interface";
 
@@ -18,8 +17,8 @@ const SumQuantityComponent = ({
   return (
     <Box
       display="flex"
-      alignItems="center"
-      justifyContent="flex-start"
+      align-items="center"
+      justify-content="flex-start"
       gap={theme.gaps.md}
     >
       <LessIcon onClick={decrement} />

@@ -4,8 +4,9 @@ export const Spinner = styled.span`
   position: relative;
   width: 75px;
   height: 75px;
-  border-radius: 50%;
-  border: 4px solid #2f2e41;
+  border-radius: ${({ theme }) => theme.border.radius.circle};
+  border: ${({ theme }) => theme.border.size.xs} solid
+    ${({ theme }) => theme.colors.dark};
   background: conic-gradient(
     from 90deg at 50% 50%,
     rgba(128, 128, 128, 0.0001) -46.17deg,
@@ -19,14 +20,15 @@ export const Spinner = styled.span`
   &::before {
     content: "";
     position: absolute;
-    background: #2f2e41;
+    background: ${({ theme }) => theme.colors.dark};
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
     width: 70%;
     height: 70%;
-    border-radius: 50%;
-    border: 6px solid #2f2e41;
+    border-radius: ${({ theme }) => theme.border.radius.circle};
+    border: ${({ theme }) => theme.border.size["2xl"]} solid
+      ${({ theme }) => theme.colors.dark};
   }
 
   @keyframes rotation {

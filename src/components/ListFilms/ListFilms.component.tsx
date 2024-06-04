@@ -1,25 +1,21 @@
-import Box from "@/global/layout/Box";
+import Box from "@/global/layout/Box/Box.layout";
 
 import { IListFilmsProps } from "@/interfaces/IListFilms.interface";
 
-import { Loading } from "..";
 import { Cards } from "../Cards";
 
 export default function ListFilmsComponent({
   list,
-  isLoading,
   handleCartAction,
 }: Readonly<IListFilmsProps>) {
-  return isLoading ? (
-    <Loading />
-  ) : (
+  return (
     <Box
       display={"flex"}
-      alignItems={"center"}
-      justifyContent={"center"}
-      flexWrap
-      maxWidth={"960px"}
+      align-items={"center"}
+      justify-content={"center"}
+      flex-wrap="wrap"
       gap={"16px"}
+      width={"100%"}
     >
       {list.map((films) => (
         <Cards

@@ -1,17 +1,19 @@
 import * as S from "./Loading.styles";
 
-import Box from "@/global/layout/Box";
+import Box from "@/global/layout/Box/Box.layout";
 
-export function LoadingComponent() {
+function LoadingComponent() {
   return (
     <Box
       display="flex"
       width="100%"
       height="calc(100vh - 175px)"
-      justifyContent="center"
-      alignItems="center"
+      justify-content="center"
+      align-items="center"
     >
       <S.Spinner />
     </Box>
   );
 }
+
+export default LoadingComponent;

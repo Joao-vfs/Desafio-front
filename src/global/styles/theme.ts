@@ -5,7 +5,7 @@ export const THEME = {
     secundary: "#999999",
     tertiary: "#009EDD",
     quaternary: "#333333",
-    assistText: '#D9D9D9',
+    assistText: "#D9D9D9",
     success: "#039B00",
   },
   fontSize: {
@@ -24,7 +24,7 @@ export const THEME = {
     sm: "8px",
     md: "10px",
     lg: "12px",
-    xg: '15px'
+    xg: "15px",
   },
   paddings: {
     nano: "8px",
@@ -34,11 +34,20 @@ export const THEME = {
     md: "16px",
     lg: "18px",
   },
-  borderRadius: {
-    none: "",
-    small: "4px;",
-    medium: "8px",
-    large: "16px",
-    circle: "50%",
+  border: {
+    radius: {
+      none: "",
+      small: "4px;",
+      medium: "8px",
+      large: "16px",
+      circle: "50%",
+    },
+    size: {
+      xs: "1px",
+      sm: "2px",
+      md: "3px",
+      lg: "4px",
+      "2xl": "6px",
+    },
   },
 };

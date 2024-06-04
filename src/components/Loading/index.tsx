@@ -1,7 +1,7 @@
 "use client";
 
-import { LoadingComponent } from "./Loading.component";
+import LoadingComponent from "./Loading.component";
 
-export function Loading() {
+export default function Loading() {
   return <LoadingComponent />;
 }

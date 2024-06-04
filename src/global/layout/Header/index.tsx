@@ -9,14 +9,11 @@ import useMobile from "@/global/isMobile/isMobile";
 import HeaderLayout from "./Header.layout";
 
 export function Header() {
-  const itemsCart = UseAppSelector(
+  const filmsSelected = UseAppSelector(
     (state) => state.WeMoviesSlice.weMovies.filmsSelected
   );
 
-  return (
-    <HeaderLayout
-      isMobile={useMobile()}
-      itemsCart={itemsCart?.filter((i) => i.cart).length ?? 0}
-    />
-  );
+  const itemsCart = filmsSelected?.filter((i) => i.cart).length ?? 0;
+
+  return <HeaderLayout isMobile={useMobile()} itemsCart={itemsCart} />;
 }

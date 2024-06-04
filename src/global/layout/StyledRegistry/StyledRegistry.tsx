@@ -5,7 +5,7 @@ import React, { useState } from "react";
 
 import { ServerStyleSheet, StyleSheetManager } from "styled-components";
 
-export default function StyledComponentsRegistry({
+export default function StyledRegistry({
   children,
 }: {
   children: React.ReactNode;

@@ -1,7 +1,6 @@
 import { IFilmsProps } from "./IFilms.interface";
 
 export interface ISelectedComponentProps {
-  isLoading: boolean;
   selectedFilms: IFilmsProps[];
   handleCartAction: (
     film: IFilmsProps,
@@ -10,5 +9,5 @@ export interface ISelectedComponentProps {
 }
 
 export interface ISelectedFilmsProps extends ISelectedComponentProps {
-  isMobile: boolean;
+  device: 'mobile' | 'desktop';
 }

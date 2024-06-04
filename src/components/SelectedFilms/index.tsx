@@ -1,20 +1,23 @@
 "use client";
 
-import { useFilm } from "@/hooks/useHooks";
+import { useFilms } from "@/hooks/useFilms";
 
 import useMobile from "@/global/isMobile/isMobile";
 
 import SelectedFilmsComponent from "./SelectedFilms.component";
+import { PurchaseResult } from "../PurchaseResult";
 
 export function SelectedFilms() {
-  const { isLoading, handleCartAction, filmsInCart } = useFilm();
+  const { handleCartAction, filmsInCart } = useFilms();
+  const device = useMobile() ? "mobile" : "desktop";
 
-  return (
+  return filmsInCart.length === 0 ? (
+    <PurchaseResult />
+  ) : (
     <SelectedFilmsComponent
-      isLoading={isLoading}
       selectedFilms={filmsInCart}
       handleCartAction={handleCartAction}
-      isMobile={useMobile()}
+      device={device}
     />
   );
 }

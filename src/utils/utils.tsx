@@ -1,3 +1,9 @@
+import {
+  ICSSPropertiesKeys,
+  IStyleableComponentProps,
+  IStyledProps,
+} from "@/interfaces/IStyles.interface";
+
 import { IFilmsProps } from "@/interfaces/IFilms.interface";
 
 export const formatPrice = (price: number): string => {
@@ -21,4 +27,33 @@ export const totalPrice = (films: IFilmsProps[]) => {
   });
 
   return total;
+};
+
+export const processStyleProps = (
+  props: Readonly<IStyleableComponentProps>
+): IStyledProps => {
+  const styled: IStyledProps = {};
+
+  const addUnit = (value: number | string, unit: string = "px"): string => {
+    if (typeof value === "number" && isNaN(value)) {
+      return `${value}${unit}`;
+    }
+    return value as string;
+  };
+
+  Object.keys(props).forEach((key) => {
+    const cssKey = key as ICSSPropertiesKeys;
+    const value = props[cssKey];
+
+    if (
+      value != null &&
+      (typeof value === "number" || typeof value === "string")
+    ) {
+      styled[cssKey] = addUnit(value);
+    } else {
+      styled[cssKey] = value;
+    }
+  });
+
+  return styled;
 };

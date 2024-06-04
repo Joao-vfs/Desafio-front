@@ -1,14 +1,17 @@
+"use-client";
+
 import { useCallback, useEffect, useState } from "react";
 
-import { getFilms, putFilms } from "@/services/query";
+import { FilmsService } from "@/services/query";
 
 import { UseAppDispatch, UseAppSelector } from "@/redux/store";
 import { handleFilmsSelected } from "@/redux/slices/WeMovies/weMovies.slices";
 
 import { IFilmsProps } from "@/interfaces/IFilms.interface";
 
-export function useFilm() {
+export function useFilms() {
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   const allFilms = UseAppSelector(
     (state) => state.WeMoviesSlice.weMovies.filmsSelected
@@ -17,15 +20,15 @@ export function useFilm() {
 
   const fetchListFilms = useCallback(async () => {
     try {
+      setIsLoading(true);
+      setError(null);
       if (allFilms.length === 0) {
         await new Promise((resolve) => setTimeout(resolve, 1500));
       }
-      setIsLoading(false);
-      const res = await getFilms();
+      const res = await FilmsService.getFilms();
       dispatch(handleFilmsSelected(res));
     } catch (error) {
-      setIsLoading(true);
-      error;
+      setError("Failed to fetch films");
     } finally {
       setIsLoading(false);
     }
@@ -34,39 +37,31 @@ export function useFilm() {
   const handleCartAction = useCallback(
     async (film: IFilmsProps, action: "add" | "remove" | "reset") => {
       try {
+        setError(null);
         const { cart, quantity, ...prev } = film;
-        let updatedFilm;
 
-        switch (action) {
-          case "add":
-            updatedFilm = {
-              cart: true,
-              quantity: quantity + 1,
-              ...prev,
-            };
-            break;
-          case "remove":
-            updatedFilm = {
-              cart: quantity === 1 ? false : true,
-              quantity: quantity === 1 ? 0 : quantity - 1,
-              ...prev,
-            };
-            break;
-          case "reset":
-            updatedFilm = {
-              cart: false,
-              quantity: 0,
-              ...prev,
-            };
-            break;
-          default:
-            throw new Error("Invalid action type");
-        }
+        const updatedFilm = {
+          add: {
+            cart: true,
+            quantity: quantity + 1,
+            ...prev,
+          },
+          remove: {
+            cart: quantity === 1 ? false : true,
+            quantity: quantity === 1 ? 0 : quantity - 1,
+            ...prev,
+          },
+          reset: {
+            cart: false,
+            quantity: 0,
+            ...prev,
+          },
+        }[action];
 
-        await putFilms(updatedFilm);
+        await FilmsService.putFilm(updatedFilm);
         fetchListFilms();
       } catch (error) {
-        throw new Error("Invalid action: The provided action is not supported.");
+        setError("Failed to update film");
       }
     },
     [fetchListFilms]
@@ -74,11 +69,18 @@ export function useFilm() {
 
   const filmsInCart = allFilms.filter((i) => i.cart);
 
-  const removeAllFromCart = () => {
-    filmsInCart.map((item) => {
-      putFilms({ ...item, cart: false, quantity: 0 });
-    });
-  };
+  const removeAllFromCart = useCallback(async () => {
+    try {
+      setError(null);
+      const promises = filmsInCart.map((item) =>
+        FilmsService.putFilm({ ...item, cart: false, quantity: 0 })
+      );
+      await Promise.all(promises);
+      fetchListFilms();
+    } catch (error) {
+      setError("Failed to remove all films from cart");
+    }
+  }, [filmsInCart, fetchListFilms]);
 
   useEffect(() => {
     fetchListFilms();
@@ -86,6 +88,7 @@ export function useFilm() {
   }, []);
 
   return {
+    error,
     isLoading,
     allFilms,
     filmsInCart,
