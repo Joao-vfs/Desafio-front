@@ -18,22 +18,19 @@ import Loading from "@/components/Loading";
 const BaseLayout = ({ children }: { children: React.ReactNode }) => {
   const { isLoading } = useFilms();
   return (
-    <ThemeProvider theme={THEME}>
-      <ResetCSS />
-      <Box
-        display="flex"
-        align-items="center"
-        justify-content="flex-start"
-        flex-direction="column"
-        width={"100%"}
-        height={"100vh"}
-      >
-        <Box max-width={"960px"}>
-          <Header />
-          <Children>{isLoading ? <Loading /> : children}</Children>
-        </Box>
+    <Box
+      display="flex"
+      align-items="center"
+      justify-content="flex-start"
+      flex-direction="column"
+      width={"100%"}
+      height={"100vh"}
+    >
+      <Box max-width={"960px"}>
+        <Header />
+        <Children>{isLoading ? <Loading /> : children}</Children>
       </Box>
-    </ThemeProvider>
+    </Box>
   );
 };
 

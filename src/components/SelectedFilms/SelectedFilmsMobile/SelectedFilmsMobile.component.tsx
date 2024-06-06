@@ -63,7 +63,9 @@ export function SelectedFilmsMobile({
                   R$ {formatPrice(moviesPurchase.price)}
                 </Typography>
                 <S.TrashButton
-                  onClick={() => handleCartAction(moviesPurchase, "reset")}
+                  onClick={() =>
+                    handleCartAction({ film: moviesPurchase, action: "reset" })
+                  }
                 >
                   <TrashIcon />
                 </S.TrashButton>
@@ -71,8 +73,12 @@ export function SelectedFilmsMobile({
               <S.ProductDescriptionContainer>
                 <SumQuantity
                   quantity={moviesPurchase.quantity}
-                  increment={() => handleCartAction(moviesPurchase, "add")}
-                  decrement={() => handleCartAction(moviesPurchase, "remove")}
+                  increment={() =>
+                    handleCartAction({ film: moviesPurchase, action: "add" })
+                  }
+                  decrement={() =>
+                    handleCartAction({ film: moviesPurchase, action: "remove" })
+                  }
                 />
                 <S.QuantitySubtotalContainer>
                   <Typography

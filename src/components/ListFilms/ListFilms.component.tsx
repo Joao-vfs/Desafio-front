@@ -17,11 +17,11 @@ export default function ListFilmsComponent({
       gap={"16px"}
       width={"100%"}
     >
-      {list.map((films) => (
+      {list?.map((film) => (
         <Cards
-          key={films.id}
-          onClick={() => handleCartAction(films, "add")}
-          films={films}
+          key={film.id}
+          onClick={() => handleCartAction({ film, action: "add" })}
+          films={film}
         />
       ))}
     </Box>

@@ -89,8 +89,12 @@ export function SelectedFilmsWeb({
           <S.IconsContainer>
             <SumQuantity
               quantity={moviesPurchase.quantity}
-              increment={() => handleCartAction(moviesPurchase, "add")}
-              decrement={() => handleCartAction(moviesPurchase, "remove")}
+              increment={() =>
+                handleCartAction({ film: moviesPurchase, action: "add" })
+              }
+              decrement={() =>
+                handleCartAction({ film: moviesPurchase, action: "remove" })
+              }
             />
             <S.SubtotalContainer>
               <Typography
@@ -104,7 +108,9 @@ export function SelectedFilmsWeb({
             </S.SubtotalContainer>
           </S.IconsContainer>
           <S.TrashButton
-            onClick={() => handleCartAction(moviesPurchase, "reset")}
+            onClick={() =>
+              handleCartAction({ film: moviesPurchase, action: "reset" })
+            }
           >
             <TrashIcon />
           </S.TrashButton>
