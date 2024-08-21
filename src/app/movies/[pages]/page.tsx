@@ -1,15 +1,11 @@
 "use client";
 
-import { Fragment } from "react";
-
-import { useRouter } from "next/navigation";
-
-import { useMovies } from "@/hooks/useMovies";
 import { useCart } from "@/hooks/useCart";
+import { useMovies } from "@/hooks/useMovies";
 
 import { ListMovies } from "@/components";
 
-export default function HomePage() {
+export default function MoviesPage() {
   const { allMovies, currentPage, totalPage, handlePageChange } = useMovies();
   const { updateMovieFromCart, moviesInCart } = useCart();
 
