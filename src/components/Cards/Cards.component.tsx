@@ -8,7 +8,6 @@ import { formatPrice } from "@/utils/utils";
 
 import { ICardProps } from "@/interfaces/ICard.interface";
 
-import { Button } from "..";
 import Image from "next/image";
 import Box from "@/global/layout/Box/Box.layout";
 import { ArrowIcon } from "@/icons";
@@ -38,6 +37,9 @@ export default function CardsComponent({
             box-shadow=" 0 4px 10px rgba(0, 0, 0, 0.3)"
             border-radius=" 50%"
             padding=" 0.75rem"
+            display="flex"
+            align-items="center"
+            justify-content="center"
           >
             {addedMovie}
           </Box>
@@ -47,7 +49,11 @@ export default function CardsComponent({
           </S.PlayIcon>
         )}
         <S.ButtonText>
-          {addedMovie > 0 ? "Itens adicionados" : "Adicionar ao Carrinho"}
+          {addedMovie > 0
+            ? addedMovie > 1
+              ? `Item adicionado`
+              : `Itens adicionados`
+            : "Adicionar ao Carrinho"}
         </S.ButtonText>
       </S.PlayButton>
     </S.CardContainer>
