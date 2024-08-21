@@ -121,7 +121,7 @@ export const PlayButton = styled.button<{ addedMovie: boolean }>`
   }
 
   @media (max-width: 768px) {
-    width: 260px;
+    width: 100%;
     transition: none;
     padding: 0.5rem;
     gap: 0.5rem;

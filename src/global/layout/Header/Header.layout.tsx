@@ -12,6 +12,7 @@ import { BagIcon, LogoIcon } from "@/icons";
 import { IHeaderLayoutProps } from "@/interfaces/IHeader.interface";
 
 import { Search } from "@/components";
+import { Fragment } from "react";
 
 export default function HeaderLayout({
   itemsCart,
@@ -61,28 +62,35 @@ export default function HeaderLayout({
         </Box>
         <S.ContentHeader>
           <Search {...props} />
-          <S.ShoppingCartInfo>
-            {!isMobile && (
-              <Typography
-                font-size={theme.fontSize.md}
-                font-weight={theme.fontWeight.semiBold}
-                color={theme.colors.dark}
-                line-height={"19.07px"}
-              >
-                Meu Carrinho
-              </Typography>
-            )}
+          {isMobile ? (
+            <S.ShoppingCart>
+              <BagIcon onClick={handleGoToCart} />
+              {itemsCart > 0 && <S.CartBadge>{itemsCart}</S.CartBadge>}
+            </S.ShoppingCart>
+          ) : (
+            <Fragment>
+              <S.ShoppingCartInfo>
+                <Typography
+                  font-size={theme.fontSize.md}
+                  font-weight={theme.fontWeight.semiBold}
+                  color={theme.colors.dark}
+                  line-height={"19.07px"}
+                >
+                  Meu Carrinho
+                </Typography>
 
-            <Typography
-              font-size={theme.fontSize.md}
-              font-weight={theme.fontWeight.semiBold}
-              color={theme.colors.secundary}
-              line-height={"19.07px"}
-            >
-              {itemsCart} itens
-            </Typography>
-          </S.ShoppingCartInfo>
-          <BagIcon onClick={handleGoToCart} />
+                <Typography
+                  font-size={theme.fontSize.md}
+                  font-weight={theme.fontWeight.semiBold}
+                  color={theme.colors.secundary}
+                  line-height={"19.07px"}
+                >
+                  {itemsCart} itens
+                </Typography>
+              </S.ShoppingCartInfo>
+              <BagIcon onClick={handleGoToCart} />
+            </Fragment>
+          )}
         </S.ContentHeader>
       </Box>
     </S.Header>
