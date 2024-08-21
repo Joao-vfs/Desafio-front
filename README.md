@@ -1,36 +1,44 @@
-# E-commerce We Movies
+# Epic Filmes
 
-## Description
+## Descrição
 
-This is a simplified e-commerce website built with React, TypeScript, and styled-components. The project includes three main modules/screens: Home, Cart, and Order Confirmation.
+Epic Filmes é uma aplicação de e-commerce para filmes, desenvolvida com React, TypeScript e styled-components. O projeto permite que os usuários naveguem por uma lista de filmes, adicionem-nos ao carrinho e finalizem a compra. A aplicação é composta por três telas principais: Home, Carrinho e Confirmação de Pedido.
 
-## Screens
+## Funcionalidades
+
+- **Navegação de Filmes:** Exibe uma lista de filmes obtida de uma API.
+- **Adicionar ao Carrinho:** Permite que os usuários adicionem filmes ao carrinho de compras.
+- **Visualizar Carrinho:** Mostra os itens adicionados ao carrinho e o valor total.
+- **Remover do Carrinho:** Permite que os usuários removam filmes do carrinho.
+- **Confirmação de Pedido:** Exibe uma mensagem de confirmação após a finalização da compra.
+
+## Telas
 
 1. **Home:**
-   - Fetches a list of movies from the API and displays them.
-   - Allows users to add movies to the shopping cart.
+   - Exibe a lista de filmes.
+   - Permite que os usuários adicionem filmes ao carrinho.
 
-2. **Cart:**
-   - Displays the items added to the cart.
-   - Calculates and shows the total value of items in the cart.
-   - Allows users to remove items from the cart.
-   - If the cart is empty, a screen is displayed with an option to go back to the Home screen.
+2. **Carrinho:**
+   - Mostra os itens no carrinho.
+   - Exibe o valor total dos itens.
+   - Permite que os usuários removam itens.
+   - Mostra uma tela de carrinho vazio com opção para retornar à Home.
 
-3. **Order Confirmation:**
-   - Displays a confirmation message after the user confirms the order.
-   - Provides an option to go back to the Home screen.
-
-## Prototype
-
-- [Figma Prototype](https://www.figma.com/file/0ZyTELvPCSCnib16XG49YP/Teste-Front-React-WeFit---2022?type=design&node-id=0-1&mode=design&t=E15UCXlYTibyXXht-0)
+3. **Confirmação de Pedido:**
+   - Mostra uma mensagem de confirmação após a finalização da compra.
+   - Oferece a opção de retornar à Home.
 
 ## API
 
-For this project, we simulate an API by using a JSON file. You can download the list of objects from [here]([link-to-api-json-file](https://www.npmjs.com/package/json-server)).
+Para simular a API, o projeto utiliza o Firebase. Configure o Firebase no seu projeto seguindo a [documentação do Firebase](https://firebase.google.com/docs/web/setup). 
 
-To run the API server, you can use [json-server](https://github.com/typicode/json-server). Add the following command to your `package.json`:
+Para acessar os dados, você pode usar o Firebase Realtime Database. Certifique-se de adicionar as credenciais do Firebase no seu projeto e configurar o acesso aos dados corretamente.
 
-```json
-"scripts": {
-    "start-api": "json-server --watch src/api/db.json --port 3000"
-}
+## Instalação
+
+Para instalar as dependências do projeto, use um dos seguintes comandos:
+
+### Usando npm
+
+```bash
+npm install
