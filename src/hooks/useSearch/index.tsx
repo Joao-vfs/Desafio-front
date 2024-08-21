@@ -1,17 +1,21 @@
 "use client";
 
-import { MovieServices } from "@/services/query";
-import { useQuery } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
 import React, { useRef, useState } from "react";
 
-export function UseSearch() {
+import { useRouter } from "next/navigation";
+
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+
+import { MovieServices } from "@/services/query";
+
+export function UseSearch(value?: string) {
+  const queryClient = useQueryClient();
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [isExpanded, setIsExpanded] = useState(false);
   const [search, setSearch] = useState<string>("");
   const { push } = useRouter();
 
-  const { data, isLoading, error } = useQuery({
+  const { data } = useQuery({
     queryKey: ["movieSearch"],
     queryFn: MovieServices.getMovieSearch,
     refetchOnWindowFocus: false,
@@ -20,7 +24,6 @@ export function UseSearch() {
 
   const handleIconClick = () => {
     setIsExpanded((prev) => !prev);
-
     if (!isExpanded && inputRef.current) {
       inputRef.current.focus();
     }
@@ -34,22 +37,31 @@ export function UseSearch() {
     setSearch(e.currentTarget.value);
   };
 
-  const resultSearch = () => {
-    if (search.trim() !== "") {
-      push(`/search?movies=${search}`);
-    }
-  };
+  const resultSearchMutation = useMutation({
+    mutationFn: async () => {
+      if (search.trim() !== "") {
+        push(`/search?movies=${search}`);
+      }
+    },
+    onSuccess: () => {
+      if (value)
+        return queryClient.invalidateQueries({ queryKey: ["movieSearch"] });
+    },
+  });
+
+  const filteredData = data?.data?.filter((movie) => {
+    const searchValue = value?.toLowerCase();
+    return movie.title?.toLowerCase().includes(searchValue ?? "");
+  });
 
   return {
     handleInputChange,
     handleIconClick,
-    resultSearch,
+    resultSearch: resultSearchMutation.mutateAsync,
     handleKeyUp,
     isExpanded,
-    isLoading,
     inputRef,
     search,
-    data,
-    error,
+    data: filteredData,
   };
 }

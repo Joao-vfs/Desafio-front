@@ -12,16 +12,12 @@ interface Params {
 
 export default function SearchPage(searchParams: Params) {
   const { updateMovieFromCart, moviesInCart } = useCart();
-  const { data } = UseSearch();
+  const { movies } = searchParams?.searchParams;
+  const { data } = UseSearch(movies);
 
-  const list = data?.data?.filter((movie) => {
-    const searchValue = searchParams?.searchParams?.movies?.toLowerCase() ?? "";
-    return movie.title?.toLowerCase().includes(searchValue);
-  });
-
-  return list?.length ? (
+  return data?.length ? (
     <ListMovies
-      list={list}
+      list={data}
       moviesInCart={moviesInCart}
       updateMovieFromCart={updateMovieFromCart}
     />
