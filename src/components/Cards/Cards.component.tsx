@@ -50,7 +50,7 @@ export default function CardsComponent({
         )}
         <S.ButtonText>
           {addedMovie > 0
-            ? addedMovie > 1
+            ? addedMovie === 1
               ? `Item adicionado`
               : `Itens adicionados`
             : "Adicionar ao Carrinho"}

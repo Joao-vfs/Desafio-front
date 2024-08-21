@@ -60,7 +60,12 @@ export const ImagePlaceholder = styled.div`
     position: relative;
     width: 100%;
     height: 100px;
-    transform: translateY(-45px) translateX(-50px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: none;
+    top: 0;
+    left: 0;
 
     img {
       width: 100%;
@@ -69,7 +74,7 @@ export const ImagePlaceholder = styled.div`
     }
 
     ${CardContainer}:hover & {
-      transform: translateY(-45px) translateX(-50px);
+      transform: none;
     }
   }
 `;

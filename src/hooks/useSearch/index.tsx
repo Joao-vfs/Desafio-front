@@ -36,7 +36,7 @@ export function UseSearch() {
 
   const resultSearch = () => {
     if (search.trim() !== "") {
-      push(`search?movies=${search}`);
+      push(`/search?movies=${search}`);
     }
   };
 
