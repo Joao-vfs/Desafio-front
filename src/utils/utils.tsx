@@ -4,7 +4,7 @@ import {
   IStyledProps,
 } from "@/interfaces/IStyles.interface";
 
-import { IFilmsProps } from "@/interfaces/IFilms.interface";
+import { IMovieProps } from "@/interfaces/IMovies.interface";
 
 export const formatPrice = (price: number): string => {
   const priceFixed = price?.toFixed(2);
@@ -19,11 +19,11 @@ export const formatPrice = (price: number): string => {
   return priceFormatted;
 };
 
-export const totalPrice = (films: IFilmsProps[]) => {
+export const totalPrice = (movie: IMovieProps[]) => {
   let total = 0;
 
-  films?.forEach((totalPrice) => {
-    total += totalPrice.price * totalPrice.quantity;
+  movie?.forEach((totalPrice) => {
+    total += totalPrice?.price * totalPrice?.quantity;
   });
 
   return total;

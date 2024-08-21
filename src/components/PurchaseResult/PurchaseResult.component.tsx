@@ -5,19 +5,22 @@ import { useTheme } from "styled-components";
 import Box from "@/global/layout/Box/Box.layout";
 import Typography from "@/global/Typography/Typography";
 
-import FinalizePurchases from "@/assets/images/Group 34.svg";
-import WithoutItems from "@/assets/images/Group 43.svg";
+import FinalizePurchases from "@/assets/images/sapiens (1).png";
+import WithoutItems from "@/assets/images/sapiens (2).png";
+import NotFoundMovies from "@/assets/images/sapiens.png";
 
 import { Button } from "@/components";
 
 export default function PurchaseResult({
   handleBackHome,
   isMobile,
-  havePurchase = false,
+  havePurchase,
+  isSearchPage,
 }: {
   handleBackHome: () => void;
   isMobile: boolean;
   havePurchase?: boolean;
+  isSearchPage: boolean;
 }) {
   const theme = useTheme();
   const status = havePurchase ? "success" : "noPurchase";
@@ -26,7 +29,7 @@ export default function PurchaseResult({
   const getSizes = {
     success: {
       height: "532.8px",
-      widthImage: 0,
+      widthImage: isMobile ? 344 : 444,
     },
     noPurchase: {
       height: isMobile ? "574px" : "532px",
@@ -40,8 +43,8 @@ export default function PurchaseResult({
       desktop: "Compra realizada com sucesso!",
     },
     noPurchase: {
-      mobile: "Parece que não <br /> há nada por aqui :(",
-      desktop: "Parece que não há nada por aqui :(",
+      mobile: "Seu carrinho está vazio!",
+      desktop: "Seu carrinho está vazio!",
     },
   };
 
@@ -50,41 +53,47 @@ export default function PurchaseResult({
   const renderedText = (
     <Box display="flex">
       <Typography
-        font-size={theme.fontSize.lg}
+        font-size={theme.fontSize.xg}
         font-weight={theme.fontWeight.bold}
-        color={theme.colors.dark}
+        color={theme.colors.primary}
         line-height={isMobile ? "30.24px" : "16.34px"}
         text-align="center"
-      >
-        <p dangerouslySetInnerHTML={{ __html: getMessage }} />
-      </Typography>
+        dangerouslySetInnerHTML={{ __html: getMessage }}
+      />
     </Box>
   );
 
   const imageSrc = havePurchase ? FinalizePurchases : WithoutItems;
 
-  return (
+  return isSearchPage ? (
     <Box
-      background={theme.colors.primary}
       display="flex"
       flex-direction="column"
       align-items="center"
-      justify-content="space-between"
+      justify-content="space-around"
       min-width={isMobile ? "343px" : "960px"}
       min-height={getSizes.height}
       padding={isMobile ? "64px 0" : "64px"}
       gap={"32px"}
       border-radius={theme.border.radius.small}
     >
-      {renderedText}
-      <Image src={imageSrc} alt="" width={getSizes.widthImage} />
+      <Typography
+        font-size={theme.fontSize.xg}
+        font-weight={theme.fontWeight.bold}
+        color={theme.colors.primary}
+        line-height={isMobile ? "30.24px" : "16.34px"}
+        text-align="center"
+      >
+        Não encontramos nada por aqui!
+      </Typography>
+      <Image src={NotFoundMovies} alt="" width={getSizes.widthImage} />
       <Button
         display="flex"
         align-items="center"
         justify-content="center"
         gap={theme.gaps.lg}
         height="40px"
-        width="180px"
+        width="250px"
         padding={theme.paddings.xxs}
         background={theme.colors.tertiary}
         border-radius={theme.border.radius.small}
@@ -100,6 +109,45 @@ export default function PurchaseResult({
           Voltar
         </Typography>
       </Button>
+    </Box>
+  ) : (
+    <Box
+      display="flex"
+      flex-direction="column"
+      align-items="center"
+      justify-content="space-around"
+      min-width={isMobile ? "343px" : "960px"}
+      min-height={getSizes.height}
+      padding={isMobile ? "64px 0" : "64px"}
+      gap={"32px"}
+      border-radius={theme.border.radius.small}
+    >
+      {renderedText}
+      <Image src={imageSrc} alt="" width={getSizes.widthImage} />
+      {!havePurchase && (
+        <Button
+          display="flex"
+          align-items="center"
+          justify-content="center"
+          gap={theme.gaps.lg}
+          height="40px"
+          width="250px"
+          padding={theme.paddings.xxs}
+          background={theme.colors.tertiary}
+          border-radius={theme.border.radius.small}
+          border="none"
+          onClick={handleBackHome}
+        >
+          <Typography
+            font-size={theme.fontSize.sm}
+            font-weight={theme.fontWeight.bold}
+            color={theme.colors.primary}
+            line-height="19.07px"
+          >
+            Voltar
+          </Typography>
+        </Button>
+      )}
     </Box>
   );
 }

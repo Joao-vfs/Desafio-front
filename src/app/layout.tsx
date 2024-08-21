@@ -7,7 +7,7 @@ import Provider from "@/global/Provider/provider";
 const OPENS_SANS = Open_Sans({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "We Movies",
+  title: "Epic Films",
 };
 
 export default function RootLayout({

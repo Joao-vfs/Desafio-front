@@ -1,4 +1,3 @@
-"use client";
 import { useServerInsertedHTML } from "next/navigation";
 
 import React, { useState } from "react";

@@ -1,6 +1,7 @@
-import { IFilmsProps } from "./IFilms.interface";
+import { IMovieProps } from "./IMovies.interface";
 
 export interface ICardProps {
   onClick: () => void;
-  films: IFilmsProps;
+  movie: IMovieProps;
+  addedMovie: number;
 }

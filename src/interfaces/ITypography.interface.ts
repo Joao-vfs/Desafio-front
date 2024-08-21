@@ -1,8 +1,5 @@
-import { HTMLAttributes, ReactNode } from "react";
+import { ComponentProps, ReactNode } from "react";
 
 import { IStyleableComponentProps } from "./IStyles.interface";
 
-export type ITypographyProps = HTMLAttributes<HTMLParagraphElement> &
-  IStyleableComponentProps & {
-    children: ReactNode;
-  };
+export type ITypographyProps = ComponentProps<"p"> & IStyleableComponentProps;

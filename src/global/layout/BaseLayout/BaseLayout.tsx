@@ -2,21 +2,20 @@
 
 import React from "react";
 
-import { ThemeProvider } from "styled-components";
-import { THEME } from "../../styles/theme";
-import { ResetCSS } from "../../styles/resetCss";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import { Children } from "./BaseLayout.styles";
 
 import Box from "../Box/Box.layout";
 import { Header } from "../Header";
 
-import { useFilms } from "@/hooks/useFilms";
+import { useMovies } from "@/hooks/useMovies";
 
 import Loading from "@/components/Loading";
 
 const BaseLayout = ({ children }: { children: React.ReactNode }) => {
-  const { isLoading } = useFilms();
+  const { isLoading } = useMovies();
   return (
     <Box
       display="flex"
@@ -26,8 +25,9 @@ const BaseLayout = ({ children }: { children: React.ReactNode }) => {
       width={"100%"}
       height={"100vh"}
     >
-      <Box max-width={"960px"}>
-        <Header />
+      <ToastContainer />
+      <Header />
+      <Box max-width={"960px"} padding="110px 0">
         <Children>{isLoading ? <Loading /> : children}</Children>
       </Box>
     </Box>

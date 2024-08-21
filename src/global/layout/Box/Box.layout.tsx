@@ -1,9 +1,9 @@
 import React from "react";
-import { IStyleableComponentProps } from "@/interfaces/IStyles.interface";
+import { IBoxProps } from "@/interfaces/IBox.inteface";
 import { Container } from "./Box.styles";
 import { processStyleProps } from "@/utils/utils";
 
-const Box = ({ children, ...props }: Readonly<IStyleableComponentProps>) => {
+const Box = ({ children, ...props }: Readonly<IBoxProps>) => {
   const styledBox = processStyleProps(props);
 
   return <Container {...styledBox}>{children}</Container>;

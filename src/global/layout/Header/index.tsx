@@ -2,18 +2,37 @@
 
 import React from "react";
 
-import { UseAppSelector } from "@/redux/store";
-
 import useMobile from "@/global/isMobile/isMobile";
 
 import HeaderLayout from "./Header.layout";
 
+import { UseSearch } from "@/hooks/useSearch";
+import { useCart } from "@/hooks/useCart";
+
 export function Header() {
-  const filmsSelected = UseAppSelector(
-    (state) => state.WeMoviesSlice.weMovies.filmsSelected
+  const { moviesInCart } = useCart();
+
+  const {
+    handleIconClick,
+    handleKeyUp,
+    handleInputChange,
+    inputRef,
+    isExpanded,
+    resultSearch,
+    search,
+  } = UseSearch();
+
+  return (
+    <HeaderLayout
+      isMobile={useMobile()}
+      itemsCart={moviesInCart.length}
+      handleIconClick={handleIconClick}
+      handleKeyUp={handleKeyUp}
+      handleInputChange={handleInputChange}
+      inputRef={inputRef}
+      isExpanded={isExpanded}
+      resultSearch={resultSearch}
+      search={search}
+    />
   );
-
-  const itemsCart = filmsSelected?.filter((i) => i.cart).length ?? 0;
-
-  return <HeaderLayout isMobile={useMobile()} itemsCart={itemsCart} />;
 }

@@ -1,18 +1,12 @@
 import styled from "styled-components";
 
 export const Header = styled.header`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 70px;
-  min-width: 960px;
-  max-width: 100%;
-  padding: 10px;
+  position: fixed;
+  z-index: 1000;
+  height: 90px;
+  width: 100%;
   margin-bottom: 25px;
-
-  @media only screen and (max-width: 768px) {
-    min-width: 343px;
-  }
+  background-color: #fff;
 `;
 
 export const ContentHeader = styled.div`

@@ -1,78 +1,55 @@
 import { useTheme } from "styled-components";
+
 import * as S from "./Cards.styles";
 
 import Typography from "@/global/Typography/Typography";
-
-import { CartIcon } from "@/icons";
 
 import { formatPrice } from "@/utils/utils";
 
 import { ICardProps } from "@/interfaces/ICard.interface";
 
 import { Button } from "..";
+import Image from "next/image";
+import Box from "@/global/layout/Box/Box.layout";
+import { ArrowIcon } from "@/icons";
 
 export default function CardsComponent({
   onClick,
-  films,
+  movie,
+  addedMovie,
 }: Readonly<ICardProps>) {
-  const theme = useTheme();
   return (
-    <S.ContainerCard>
-      <S.ImageFilm src={films.image} alt={films.title} />
-      <S.ContentCard>
-        <Typography
-          font-size={theme.fontSize.nano}
-          font-weight={theme.fontWeight.bold}
-          color={theme.colors.quaternary}
-          line-height={"16.34px"}
-        >
-          {films.title}
-        </Typography>
-        <Typography
-          font-size={theme.fontSize.md}
-          font-weight={theme.fontWeight.bold}
-          color={theme.colors.dark}
-          line-height={"21.79px"}
-        >
-          R$ {formatPrice(films.price)}
-        </Typography>
-      </S.ContentCard>
-      <Button
-        display={"flex"}
-        align-items={"center"}
-        justify-content={"center"}
-        gap={films.quantity > 0 ? "25px" : theme.gaps.lg}
-        height={"40px"}
-        width={"287px"}
-        padding={theme.paddings.xxs}
-        background={
-          films.quantity > 0 ? theme.colors.success : theme.colors.tertiary
-        }
-        border-radius={theme.border.radius.small}
-        border={"none"}
-        onClick={onClick}
-      >
-        <S.ItemAdd>
-          <CartIcon />
-          <Typography
-            font-size={theme.fontSize.nano}
-            font-weight={theme.fontWeight.normal}
-            color={theme.colors.primary}
-            line-height={"16.34px"}
+    <S.CardContainer>
+      <S.ImagePlaceholder>
+        <Image src={movie.image} alt={movie.title} width={250} height={140} />
+      </S.ImagePlaceholder>
+      <div>
+        <S.CardTitle>{movie.title}</S.CardTitle>
+        <S.CardText>{movie.description}</S.CardText>
+        <S.CardTitle> R$ {formatPrice(movie.price)}</S.CardTitle>
+      </div>
+      <S.PlayButton addedMovie={addedMovie > 0} onClick={onClick}>
+        {addedMovie > 0 ? (
+          <Box
+            height=" 50px"
+            width=" 50px"
+            color="#fff"
+            background-color=" #0a0a0a"
+            box-shadow=" 0 4px 10px rgba(0, 0, 0, 0.3)"
+            border-radius=" 50%"
+            padding=" 0.75rem"
           >
-            {films.quantity}
-          </Typography>
-        </S.ItemAdd>
-        <Typography
-          font-size={theme.fontSize.nano}
-          font-weight={theme.fontWeight.bold}
-          color={theme.colors.primary}
-          line-height={"16.34px"}
-          cursor="pointer"
-        >
-          {films.quantity > 0 ? "ITEM ADICIONADO" : "ADICIONAR AO CARRINHO"}
-        </Typography>
-      </Button>
-    </S.ContainerCard>
+            {addedMovie}
+          </Box>
+        ) : (
+          <S.PlayIcon>
+            <ArrowIcon />
+          </S.PlayIcon>
+        )}
+        <S.ButtonText>
+          {addedMovie > 0 ? "Itens adicionados" : "Adicionar ao Carrinho"}
+        </S.ButtonText>
+      </S.PlayButton>
+    </S.CardContainer>
   );
 }
