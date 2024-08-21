@@ -28,11 +28,9 @@ export default function PurchaseResult({
 
   const getSizes = {
     success: {
-      height: "532.8px",
       widthImage: isMobile ? 344 : 444,
     },
     noPurchase: {
-      height: isMobile ? "574px" : "532px",
       widthImage: isMobile ? 344 : 444,
     },
   }[status];
@@ -71,8 +69,6 @@ export default function PurchaseResult({
       flex-direction="column"
       align-items="center"
       justify-content="space-around"
-      min-width={isMobile ? "343px" : "960px"}
-      min-height={getSizes.height}
       padding={isMobile ? "64px 0" : "64px"}
       gap={"32px"}
       border-radius={theme.border.radius.small}
@@ -116,8 +112,6 @@ export default function PurchaseResult({
       flex-direction="column"
       align-items="center"
       justify-content="space-around"
-      min-width={isMobile ? "343px" : "960px"}
-      min-height={getSizes.height}
       padding={isMobile ? "64px 0" : "64px"}
       gap={"32px"}
       border-radius={theme.border.radius.small}

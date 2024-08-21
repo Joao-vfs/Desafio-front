@@ -1,8 +1,4 @@
-import { useTheme } from "styled-components";
-
 import * as S from "./Cards.styles";
-
-import Typography from "@/global/Typography/Typography";
 
 import { formatPrice } from "@/utils/utils";
 

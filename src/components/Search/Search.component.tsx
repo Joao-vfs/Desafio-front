@@ -12,12 +12,7 @@ export function SearchComponent({
   handleKeyUp,
 }: Readonly<ISearchComponentsProps>) {
   return (
-    <S.InputWrapper
-      onSubmit={(e) => {
-        e.preventDefault();
-        resultSearch();
-      }}
-    >
+    <S.InputWrapper>
       <S.Icon onClick={handleIconClick}>
         <svg
           width="25px"

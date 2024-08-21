@@ -21,9 +21,11 @@ export function UseSearch() {
   const handleIconClick = () => {
     setIsExpanded((prev) => !prev);
 
-    if (!isExpanded && inputRef.current) {
-      inputRef.current.focus();
-    }
+    setTimeout(() => {
+      if (!isExpanded && inputRef.current) {
+        inputRef.current.focus();
+      }
+    }, 100);
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,7 +33,9 @@ export function UseSearch() {
   };
 
   const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    setSearch(e.currentTarget.value);
+    if (e.code === "Enter") {
+      resultSearch();
+    }
   };
 
   const resultSearch = () => {
